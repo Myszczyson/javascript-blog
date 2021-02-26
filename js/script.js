@@ -1,3 +1,8 @@
+const optArticleSelector = '.post',
+  optTitleSelector = '.post-title',
+  optTitleListSelector = '.titles',
+  optArticleTagsSelector = '.post-tags .list';
+
 const titleClickHandler = function(event){
   event.preventDefault();
   const clickedElement = this;
@@ -30,12 +35,7 @@ const titleClickHandler = function(event){
   targetArticle.classList.add('active');
 }
 
-
 function generateTitleLinks(){
-  const optArticleSelector = '.post',
-  optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles';
-
   /* remove contents of titleList */
   const titleList = document.querySelector(optTitleListSelector);
   titleList.innerHTML = '';
@@ -50,7 +50,6 @@ function generateTitleLinks(){
     /* create HTML of the link */
     const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
     /* insert link into titleList */
-    titleList.innerHTML = titleList.innerHTML + linkHTML;
     html = html + linkHTML;
     console.log(html);
   }
@@ -62,20 +61,13 @@ generateTitleLinks();
 const links = document.querySelectorAll('.titles a');
 for(let link of links){
   link.addEventListener('click', titleClickHandler);
-
-
 }
 
 
 function generateTags(){
   /* find all articles */
-  const optArticleSelector = '.post',
-  optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list';
-
-  /* START LOOP: for every article: */
   const articles = document.querySelectorAll(optArticleSelector);
+  /* START LOOP: for every article: */
   for(let article of articles) {
     /* find tags wrapper */
     const tagList  = article.querySelector(optArticleTagsSelector);
@@ -91,14 +83,13 @@ function generateTags(){
     for(let tag of articleTagsArray) {
       console.log(tag);
       /* generate HTML of the link */
-      const linkHTML = '<li><a href="#tag-' + tagList + '"><span>' + tag + '</span></a></li>';
+      const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
       /* add generated code to html variable */
-      tagList.innerHTML = tagList.innerHTML + linkHTML;
       html = html + linkHTML;
       /* END LOOP: for each tag */
     }
     /* insert HTML of all the links into the tags wrapper */
-
+    tagList.innerHTML = html;
   /* END LOOP: for every article: */
   }
 }
